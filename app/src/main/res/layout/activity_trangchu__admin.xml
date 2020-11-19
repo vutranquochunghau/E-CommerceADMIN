@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Trangchu_Admin"
+    android:id="@+id/drawer_layout"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,11 +26,12 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_home_24"
-                    android:background="@drawable/round_border_trangchu_iconhome"/>
+                    android:onClick="clickMenu"
+                    android:src="@drawable/ic_baseline_menu_24" />
 
             </LinearLayout>
             <LinearLayout
@@ -73,12 +75,14 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <EditText
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/round_border_login_admin"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
                 android:hint="Search"
                 android:inputType="text"
                 android:padding="10dp"
@@ -90,5 +94,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"></LinearLayout>
+        android:layout_weight="7"
+        android:paddingTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9">
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="right">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_addproducts"
+                    android:paddingRight="70dp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:background="#fff">-->
+
+<!--        <include layout="@layout/main_nav_drawer" />-->
+<!--    </RelativeLayout>-->
 </LinearLayout>

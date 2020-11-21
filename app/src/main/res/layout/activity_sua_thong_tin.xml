@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ThongTin">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+    <ImageView
+        android:layout_margin="30dp"
+        android:layout_width="178dp"
+        android:layout_height="114dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo" />
+    <EditText
+        style="@style/Edittest"
+        android:hint="Nhập địa chỉ"/>
+    <EditText
+        style="@style/Edittest"
+        android:hint="Nhập thời gian mở của"/>
+    <EditText
+        style="@style/Edittest"
+        android:hint="Nhập số điện thoại"/>
+    <EditText
+        style="@style/Edittest"
+        android:hint="Mô tả thêm"/>
+
+    <Button
+        android:id="@+id/btnSua"
+        style="@style/Button"
+        android:layout_marginTop="50dp"
+        android:layout_width="147dp"
+        android:layout_height="wrap_content"
+        android:text="Sửa" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Activity.Trangchu_Admin"
-    tools:openDrawer="">
+    tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Quản lý đơn hàng"
+        android:id="@+id/nav_qldh"
+        android:icon="@drawable/ic_baseline_bookmarks_24"></item>
+    <item
+        android:title="Quản lý khách hàng"
+        android:id="@+id/nav_qlkh"
+        android:icon="@drawable/ic_baseline_supervised_user_circle_24"></item>
+    <item
+        android:title="Danh sách đen"
+        android:id="@+id/nav_dsd"
+        android:icon="@drawable/ic_block"></item>
+    <item
+        android:title="Đổi mật khẩu"
+        android:id="@+id/nav_dmk"
+        android:icon="@drawable/ic_baseline_vpn_key_24"></item>
+    <item
+        android:title="Đăng xuất"
+        android:id="@+id/nav_dangxuat"
+        android:icon="@drawable/sign_out"></item>
+
+</menu>

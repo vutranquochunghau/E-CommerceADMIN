@@ -9,7 +9,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,12 +21,19 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_commerceadmin.QLDonHang;
+import com.example.e_commerceadmin.QLKhachHang;
 import com.example.e_commerceadmin.R;
+import com.example.e_commerceadmin.SuaThongTin;
+import com.example.e_commerceadmin.them;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,6 +48,8 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
     FloatingActionButton floatingButton;
     ListView lv_category, lv_product;
 
+
+    TextView txtDisplay;
     String titleCate[] = {"Điện Thoại", "Túi Xách", "Áo Nam", "Áo Nữ", "Quần Nam", "Quần Nữ"};
     int Image[] = {R.drawable.phone_image, R.drawable.tuixach_image, R.drawable.aonam_image, R.drawable.aonu_image, R.drawable.quannam, R.drawable.quannu};
 
@@ -66,6 +78,8 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 Snackbar.make(v, "Thêm sản phẩm", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                Intent intent= new Intent(Trangchu_Admin.this, them.class);
+                startActivity(intent);
             }
         });
 
@@ -120,15 +134,19 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()) {
             case R.id.nav_qldh:
                 Toast.makeText(this, "Quản Lý Đơn Hàng", Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(Trangchu_Admin.this, QLDonHang.class);
+                startActivity(intent);
                 break;
             case R.id.nav_qlkh:
                 Toast.makeText(this, "Quản Lý Khách Hàng", Toast.LENGTH_SHORT).show();
+                Intent intent1= new Intent(Trangchu_Admin.this, QLKhachHang.class);
+                startActivity(intent1);
                 break;
             case R.id.nav_dsd:
                 Toast.makeText(this, "Danh Sách Đen", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_dmk:
-                Toast.makeText(this, "Đổi Mật Khẩu", Toast.LENGTH_SHORT).show();
+                displayAlertDialog();
                 break;
             case R.id.nav_dangxuat:
                 Toast.makeText(this, "Đăng Xuất", Toast.LENGTH_SHORT).show();
@@ -136,5 +154,36 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void displayAlertDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.customdialog, null);
+        final EditText etUsername = (EditText) alertLayout.findViewById(R.id.mkc);
+        final EditText etPassword = (EditText) alertLayout.findViewById(R.id.mkm);
+        final EditText cbShowPassword = (EditText) alertLayout.findViewById(R.id.nmkm);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("ĐỔI MẬT KHẨU");
+        alert.setView(alertLayout);
+        alert.setCancelable(false);
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // code for matching password
+                String user = etUsername.getText().toString();
+                String pass = etPassword.getText().toString();
+                Toast.makeText(getBaseContext(),  user  + pass, Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 }

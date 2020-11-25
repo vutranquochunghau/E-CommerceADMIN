@@ -15,7 +15,7 @@
             android:padding="10dp"
             android:password="true"
             android:singleLine="true" />
-
+               
     <EditText
         android:id="@+id/mkm"
         android:layout_width="match_parent"

@@ -59,14 +59,19 @@
 
                     <ListView
                         android:id="@+id/lv_category"
-                        android:layout_width="0dp"
+                        android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="10"/>
-                    <ListView
-                        android:id="@+id/lv_product"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"/>
+                        android:layout_weight="10">
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/floatingButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:layout_margin="16dp"
+                            app:srcCompat="@drawable/add"
+                            tools:ignore="VectorDrawableCompat" />
+                    </ListView>
 
                 </LinearLayout>
 
@@ -76,14 +81,7 @@
                 android:id="@+id/fragment_bot_menu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="16dp"
-                    app:srcCompat="@drawable/add"
-                    tools:ignore="VectorDrawableCompat" />
+
             </FrameLayout>
         </RelativeLayout>
     </LinearLayout>

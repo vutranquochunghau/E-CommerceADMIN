@@ -10,14 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ThôngTin.SuaThongTin"/>
+        <activity android:name=".SuaThongTin"/>
         <activity android:name=".dsden" />
         <activity android:name=".QLKhachHang" />
         <activity android:name=".QLDonHang" />
         <activity android:name=".QuanLySanPham.Sua" />
-        <activity android:name=".QuanLySanPham.chitiet_xoa" />
+        <activity android:name=".chitiet_xoa" />
         <activity android:name=".QuanLySanPham.them" />
-        <activity android:name=".ThôngTin.ThongTin" />
+        <activity android:name=".ThongTin" />
         <activity android:name=".Activity.Trangchu_Admin"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Activity.Login_Admin" >

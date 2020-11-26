@@ -1,12 +1,10 @@
-package com.example.e_commerceadmin.QuanLySanPham;
+package com.example.e_commerceadmin;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.example.e_commerceadmin.R;
 
 public class chitiet_xoa extends AppCompatActivity {
 

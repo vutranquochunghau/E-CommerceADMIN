@@ -1,4 +1,4 @@
-package com.example.e_commerceadmin.ThôngTin;
+package com.example.e_commerceadmin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.app.AlertDialog;
-
-import com.example.e_commerceadmin.R;
 
 public class SuaThongTin extends AppCompatActivity {
 Button btnSua;

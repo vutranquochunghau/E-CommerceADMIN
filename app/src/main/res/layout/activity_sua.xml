@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".them">
+    tools:context=".QuanLySanPham.them">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,9 +30,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <EditText style="@style/Edittest" />
+            <EditText style="@style/Edittest"
+                android:hint="Nhập tên sản phẩm"/>
 
-            <EditText style="@style/Edittest" />
+            <EditText style="@style/Edittest"
+                android:hint="Nhập giá sản phẩm"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -49,13 +51,15 @@
 
                 <EditText
                     style="@style/Edittest"
-                    android:layout_width="176dp" />
+                    android:layout_width="176dp"
+                    android:hint="Nhập số lượng"/>
 
             </LinearLayout>
 
             <EditText
                 style="@style/Edittest"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:hint="Mô tả sản phẩm"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

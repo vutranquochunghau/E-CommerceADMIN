@@ -1,4 +1,4 @@
-package com.example.e_commerceadmin;
+package com.example.e_commerceadmin.QuanLySanPham;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,14 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class them extends AppCompatActivity {
+import com.example.e_commerceadmin.R;
+
+public class chitiet_xoa extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_them);
+        setContentView(R.layout.activity_chitiet_xoa);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Thêm sản phẩm ");
+        actionBar.setTitle("Chi tiết sản phẩm");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
@@ -27,7 +29,6 @@ public class them extends AppCompatActivity {
 
             default:break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

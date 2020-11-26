@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.e_commerceadmin">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,18 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SuaThongTin"/>
+        <activity android:name=".ThôngTin.SuaThongTin"/>
         <activity android:name=".dsden" />
         <activity android:name=".QLKhachHang" />
         <activity android:name=".QLDonHang" />
-        <activity android:name=".Sua" />
-        <activity android:name=".chitiet_xoa" />
-        <activity android:name=".them" />
-        <activity android:name=".Activity.Login_Admin" />
-        <activity android:name=".ThongTin" />
+        <activity android:name=".QuanLySanPham.Sua" />
+        <activity android:name=".QuanLySanPham.chitiet_xoa" />
+        <activity android:name=".QuanLySanPham.them" />
+        <activity android:name=".ThôngTin.ThongTin" />
+        <activity android:name=".Activity.Trangchu_Admin"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Activity.Login_Admin" >
 
-            <activity android:name=".Activity.Trangchu_Admin"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

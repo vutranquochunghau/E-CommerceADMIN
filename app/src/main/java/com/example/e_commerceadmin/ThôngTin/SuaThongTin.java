@@ -1,6 +1,5 @@
-package com.example.e_commerceadmin;
+package com.example.e_commerceadmin.ThôngTin;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
@@ -9,7 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+
+import com.example.e_commerceadmin.R;
+
 public class SuaThongTin extends AppCompatActivity {
 Button btnSua;
     @Override

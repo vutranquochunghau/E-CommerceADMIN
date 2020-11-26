@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,11 +17,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,27 +28,26 @@ import android.widget.Toast;
 import com.example.e_commerceadmin.QLDonHang;
 import com.example.e_commerceadmin.QLKhachHang;
 import com.example.e_commerceadmin.R;
-import com.example.e_commerceadmin.SuaThongTin;
-import com.example.e_commerceadmin.them;
+import com.example.e_commerceadmin.dsden;
+import com.example.e_commerceadmin.QuanLySanPham.them;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Trangchu_Admin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+Login_Admin lg;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     FloatingActionButton floatingButton;
     ListView lv_category, lv_product;
-
-
     TextView txtDisplay;
     String titleCate[] = {"Điện Thoại", "Túi Xách", "Áo Nam", "Áo Nữ", "Quần Nam", "Quần Nữ"};
     int Image[] = {R.drawable.phone_image, R.drawable.tuixach_image, R.drawable.aonam_image, R.drawable.aonu_image, R.drawable.quannam, R.drawable.quannu};
-
+    private FirebaseAuth.AuthStateListener mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +91,13 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
                 }
             }
         });
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+
+
     }
 
     //    ListView Category===============================================================================================
@@ -144,12 +146,17 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.nav_dsd:
                 Toast.makeText(this, "Danh Sách Đen", Toast.LENGTH_SHORT).show();
+                Intent intent2= new Intent(Trangchu_Admin.this, dsden.class);
+                startActivity(intent2);
                 break;
             case R.id.nav_dmk:
                 displayAlertDialog();
                 break;
             case R.id.nav_dangxuat:
                 Toast.makeText(this, "Đăng Xuất", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Trangchu_Admin.this, Login_Admin.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -180,6 +187,7 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
                 // code for matching password
                 String user = etUsername.getText().toString();
                 String pass = etPassword.getText().toString();
+                String passs = cbShowPassword.getText().toString();
                 Toast.makeText(getBaseContext(),  user  + pass, Toast.LENGTH_SHORT).show();
             }
         });

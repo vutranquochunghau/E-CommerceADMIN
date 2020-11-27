@@ -9,79 +9,81 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 
 import com.example.e_commerceadmin.QLDonHang;
 import com.example.e_commerceadmin.QLKhachHang;
 import com.example.e_commerceadmin.R;
+import com.example.e_commerceadmin.SuaThongTin;
 import com.example.e_commerceadmin.dsden;
 import com.example.e_commerceadmin.QuanLySanPham.them;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 public class Trangchu_Admin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-Login_Admin lg;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     FloatingActionButton floatingButton;
-    ListView lv_category, lv_product;
-    TextView txtDisplay;
+    ListView lv_category;
     String titleCate[] = {"Điện Thoại", "Túi Xách", "Áo Nam", "Áo Nữ", "Quần Nam", "Quần Nữ"};
     int Image[] = {R.drawable.phone_image, R.drawable.tuixach_image, R.drawable.aonam_image, R.drawable.aonu_image, R.drawable.quannam, R.drawable.quannu};
     private FirebaseAuth.AuthStateListener mAuth;
+    ArrayAdapter<View> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.e_commerceadmin.R.layout.activity_trangchu__admin);
+        setContentView(R.layout.activity_trangchu__admin);
         floatingButton = findViewById(R.id.floatingButton);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_menu);
         floatingButton = findViewById(R.id.floatingButton);
         lv_category = findViewById(R.id.lv_category);
-        lv_product = findViewById(R.id.lv_product);
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        adapter=new ArrayAdapter<>(this,android.R.layout.activity_list_item);
+        lv_category=findViewById(R.id.lv_category);
+        lv_category.setAdapter(adapter);
+        adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1);
+        lv_category.setAdapter(adapter);
 
 
-//============================================NavigationViewMenu============================================
+        //============================================Model===Category============================================
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        //============================================FloatingActionButton============================================
-        floatingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "Thêm sản phẩm", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                Intent intent= new Intent(Trangchu_Admin.this, them.class);
-                startActivity(intent);
-            }
-        });
-
-        //============================================Model===Category============================================
         MyAdapter myAdapter = new MyAdapter(this, titleCate, Image);
         lv_category.setAdapter(myAdapter);
-        
+
         lv_category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -91,14 +93,82 @@ Login_Admin lg;
                 }
             }
         });
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-
-
+        floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Display();
+            }
+        });
     }
+
+    private void Display() {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.customdialogradio, null);
+        final RadioButton a = (RadioButton) alertLayout.findViewById(R.id.radioButton1);
+        final RadioButton b = (RadioButton) alertLayout.findViewById(R.id.radioButton2);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("THÊM");
+        alert.setView(alertLayout);
+        alert.setCancelable(false);
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // code for matching password
+                 if(a.isChecked())
+                 {
+                     Dialog1();
+                 }
+                 if (b.isChecked())
+                 {
+                     Intent i = new Intent(Trangchu_Admin.this, them.class);
+                     startActivity(i);
+                 }
+
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    private void Dialog1() {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.customdialogthem, null);
+        final EditText ten = (EditText) alertLayout.findViewById(R.id.ten);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("THÊM DANH MỤC");
+        alert.setView(alertLayout);
+        alert.setCancelable(false);
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // code for matching password
+                String user = ten.getText().toString();
+                Toast.makeText(getBaseContext(),  user , Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+
 
     //    ListView Category===============================================================================================
     class MyAdapter extends ArrayAdapter<String> {
@@ -128,6 +198,7 @@ Login_Admin lg;
             return modelCate;
 
         }
+
     }
 
     //============================================NavigationViewMenu==ChooseItem==========================================
@@ -194,4 +265,5 @@ Login_Admin lg;
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+
 }

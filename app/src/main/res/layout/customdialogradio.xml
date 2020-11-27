@@ -19,10 +19,4 @@
             android:layout_height="wrap_content"
             android:text="Thêm sản phẩm" />
     </RadioGroup>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chọn"
-        android:layout_gravity="center"
-        android:id="@+id/btnChon"/>
 </LinearLayout>

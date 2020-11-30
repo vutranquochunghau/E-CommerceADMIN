@@ -7,56 +7,48 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
-
-
-
 import com.example.e_commerceadmin.QLDonHang;
 import com.example.e_commerceadmin.QLKhachHang;
 import com.example.e_commerceadmin.R;
-import com.example.e_commerceadmin.SuaThongTin;
 import com.example.e_commerceadmin.dsden;
 import com.example.e_commerceadmin.QuanLySanPham.them;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.lang.reflect.Array;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-
-
-public class Trangchu_Admin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.List;
+public class Trangchu_Admin<FirebaseListAdapter> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     FloatingActionButton floatingButton;
-    ListView lv_category;
-    String titleCate[] = {"Điện Thoại", "Túi Xách", "Áo Nam", "Áo Nữ", "Quần Nam", "Quần Nữ"};
-    int Image[] = {R.drawable.phone_image, R.drawable.tuixach_image, R.drawable.aonam_image, R.drawable.aonu_image, R.drawable.quannam, R.drawable.quannu};
-    private FirebaseAuth.AuthStateListener mAuth;
-    ArrayAdapter<View> adapter;
+    //Show:
+     RecyclerView recyclerView;
+     DatabaseReference databaseReference;
+     CategoryAdapter cadapter;
+     List<Category> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,14 +57,8 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_menu);
         floatingButton = findViewById(R.id.floatingButton);
-        lv_category = findViewById(R.id.lv_category);
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
-        adapter=new ArrayAdapter<>(this,android.R.layout.activity_list_item);
-        lv_category=findViewById(R.id.lv_category);
-        lv_category.setAdapter(adapter);
-        adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1);
-        lv_category.setAdapter(adapter);
 
 
         //============================================Model===Category============================================
@@ -81,24 +67,45 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        MyAdapter myAdapter = new MyAdapter(this, titleCate, Image);
-        lv_category.setAdapter(myAdapter);
 
-        lv_category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0)
-                {
-                    Toast.makeText(Trangchu_Admin.this, "Dien Thoai", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Display();
             }
         });
+        showCategory();
+    }
+
+    private void showCategory() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycle_category);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layout =new LinearLayoutManager(this, GridLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0,0,0,0);
+        layout.canScrollVertically();
+        recyclerView.setLayoutManager(layout);
+        list = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Danhmuc");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                for(DataSnapshot snapshot: snapshot1.getChildren())
+                {
+                    Category category = snapshot.getValue(Category.class);
+                    list.add(category);
+                }
+               cadapter = new CategoryAdapter(Trangchu_Admin.this, list);
+                recyclerView.setAdapter(cadapter);
+            }
+
+          @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Trangchu_Admin.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void Display() {
@@ -123,15 +130,13 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // code for matching password
-                 if(a.isChecked())
-                 {
-                     Dialog1();
-                 }
-                 if (b.isChecked())
-                 {
-                     Intent i = new Intent(Trangchu_Admin.this, them.class);
-                     startActivity(i);
-                 }
+                if (a.isChecked()) {
+                    Dialog1();
+                }
+                if (b.isChecked()) {
+                    Intent i = new Intent(Trangchu_Admin.this, them.class);
+                    startActivity(i);
+                }
 
             }
         });
@@ -161,44 +166,11 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
             public void onClick(DialogInterface dialog, int which) {
                 // code for matching password
                 String user = ten.getText().toString();
-                Toast.makeText(getBaseContext(),  user , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), user, Toast.LENGTH_SHORT).show();
             }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
-    }
-
-
-
-    //    ListView Category===============================================================================================
-    class MyAdapter extends ArrayAdapter<String> {
-        Context context;
-        String rtitleCate[];
-        int rImage[];
-
-        MyAdapter(Context context, String titleCate[], int Image[]) {
-            super(context, R.layout.model_lv_category);
-            this.context = context;
-            this.rtitleCate = titleCate;
-            this.rImage = Image;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View modelCate = layoutInflater.inflate(R.layout.model_lv_category, parent, false);
-            ImageView images = modelCate.findViewById(R.id.lv_cate_image);
-            TextView title = modelCate.findViewById(R.id.lv_cate_title);
-
-            images.setImageResource(rImage[position]);
-            title.setText(rtitleCate[position]);
-
-
-            return modelCate;
-
-        }
-
     }
 
     //============================================NavigationViewMenu==ChooseItem==========================================
@@ -258,7 +230,6 @@ public class Trangchu_Admin extends AppCompatActivity implements NavigationView.
                 // code for matching password
                 String user = etUsername.getText().toString();
                 String pass = etPassword.getText().toString();
-                String passs = cbShowPassword.getText().toString();
                 Toast.makeText(getBaseContext(),  user  + pass, Toast.LENGTH_SHORT).show();
             }
         });

@@ -27,8 +27,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -54,19 +52,15 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="525dp"
                     android:orientation="horizontal">
 
-                    <ListView
-                        android:id="@+id/lv_category"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_category"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10"/>
-                    <ListView
-                        android:id="@+id/lv_product"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"/>
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="5" />
 
                 </LinearLayout>
 

@@ -44,15 +44,20 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.2.1'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
-
-    // Declare the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
+//    implementation'com.google.android.gms.dynamite.descriptors.com.google.firebase.auth.ModuleDescriptor'
     implementation 'com.google.firebase:firebase-auth'
 
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
 
